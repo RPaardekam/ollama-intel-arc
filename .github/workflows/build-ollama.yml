@@ -11,7 +11,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/ollama-intel-arc
+  IMAGE_NAME: rpaardekam/ollama-intel-arc
 
 jobs:
   build:
