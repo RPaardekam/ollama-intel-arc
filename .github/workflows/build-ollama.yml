@@ -1,0 +1,35 @@
+services:
+  ollama:
+    image: ghcr.io/<jouw-account>/ollama-intel-arc:latest
+    container_name: ollama-intel-arc
+    restart: unless-stopped
+
+    devices:
+      - /dev/dri:/dev/dri
+
+    group_add:
+      - "44"
+      - "107"
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - /mnt/pool/appdata/ollama:/root/.ollama
+      - /mnt/pool/appdata/ollama-cache:/root/.cache
+
+    environment:
+      - ONEAPI_DEVICE_SELECTOR=level_zero:0
+      - ZES_ENABLE_SYSMAN=1
+      - SYCL_CACHE_PERSISTENT=1
+      - SYCL_PI_LEVEL_ZERO_USE_IMMEDIATE_COMMANDLISTS=1
+      - UR_L0_USE_IMMEDIATE_COMMANDLISTS=1
+      - OLLAMA_CONTEXT_LENGTH=8192
+      - OLLAMA_NUM_PARALLEL=1
+      - OLLAMA_MAX_LOADED_MODELS=1
+      - OLLAMA_MAX_QUEUE=512
+      - OLLAMA_FLASH_ATTENTION=true
+      - OLLAMA_KV_CACHE_TYPE=q4_0
+      - OLLAMA_NUM_GPU=999
+      - GGML_SYCL_F16=1
+      - GGML_SYCL_DEBUG=0
