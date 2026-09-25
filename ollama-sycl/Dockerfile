@@ -32,9 +32,9 @@ RUN cmake -S llama/server -B build \
   -DGGML_OPENMP=OFF \
   -DGGML_SYCL=ON \
   -DGGML_SYCL_TARGET=INTEL \
-  -DGGML_SYCL_F16=OFF && \
+  -DGGML_SYCL_F16=OFF \
   -DGGML_SYCL_SUPPORT_LEVEL_ZERO_API=ON \
-  -DGGML_SYCL_DNN=ON \
+  -DGGML_SYCL_DNN=ON && \
   cmake --build build --parallel $(nproc) --target ggml-sycl && \
   mkdir -p /sycl-runner && \
   find /ollama/build -name "libggml-sycl.so" -exec cp {} /sycl-runner/ \;
