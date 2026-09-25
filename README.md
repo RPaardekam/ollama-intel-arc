@@ -1,3 +1,6 @@
+# Important note: this fork has been modified for my personal use. 
+It contains repo-specific changes, usernames, static strings, which I would not recommend anyone. I did manage to tweak build in such a way that this is now running on my Intel Core 5 Ultra 225 on which I utilize the iGPU successfully in Ollama. 
+
 # Run Ollama, Stable Diffusion and Automatic Speech Recognition with your Intel Arc GPU
 
 [[Blog](https://blog.eleiton.dev/posts/llm-and-genai-in-docker/)]
