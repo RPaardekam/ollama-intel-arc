@@ -1,6 +1,6 @@
 ARG OLLAMA_VERSION=0.34.0
 ARG COMPUTE_RUNTIME_VERSION=26.31.39395.13
-ARG LEVEL_ZERO_VERSION=1.32.0
+ARG LEVEL_ZERO_VERSION=1.33.1
 ARG IGC_VERSION=2.40.13
 ARG IGC_BUILD=22418
 ARG GMM_VERSION=22.10.0
@@ -8,7 +8,7 @@ ARG GMM_VERSION=22.10.0
 # =============================================================================
 # Stage 1: Build ggml-sycl backend from Ollama source using Intel oneAPI
 # =============================================================================
-FROM intel/oneapi-basekit:2025.2.2-0-devel-ubuntu24.04 AS sycl-builder
+FROM intel/oneapi-basekit:2025.3.3-0-devel-ubuntu24.04 AS sycl-builder
 
 ARG OLLAMA_VERSION
 
@@ -32,7 +32,9 @@ RUN cmake -S llama/server -B build \
   -DGGML_OPENMP=OFF \
   -DGGML_SYCL=ON \
   -DGGML_SYCL_TARGET=INTEL \
-  -DGGML_SYCL_F16=ON && \
+  -DGGML_SYCL_F16=OFF && \
+  -DGGML_SYCL_SUPPORT_LEVEL_ZERO_API=ON \
+  -DGGML_SYCL_DNN=ON \
   cmake --build build --parallel $(nproc) --target ggml-sycl && \
   mkdir -p /sycl-runner && \
   find /ollama/build -name "libggml-sycl.so" -exec cp {} /sycl-runner/ \;
